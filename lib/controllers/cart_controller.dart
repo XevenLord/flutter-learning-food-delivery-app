@@ -4,7 +4,6 @@ import 'package:food_delivery/models/cart_model.dart';
 import 'package:food_delivery/models/products_model.dart';
 import 'package:food_delivery/utils/colors.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 class CartController extends GetxController {
   final CartRepo cartRepo;
@@ -27,10 +26,11 @@ class CartController extends GetxController {
           quantity: value.quantity! + quantity,
           isExist: true,
           time: DateTime.now().toString(),
+          product: product,
         );
       });
 
-      if(totalQuantity <= 0){
+      if (totalQuantity <= 0) {
         _items.remove(product.id);
       }
     } else {
@@ -44,6 +44,7 @@ class CartController extends GetxController {
             quantity: quantity,
             isExist: true,
             time: DateTime.now().toString(),
+            product: product,
           );
         });
       } else {
@@ -55,6 +56,7 @@ class CartController extends GetxController {
         );
       }
     }
+    update();
   }
 
   bool existInCart(ProductModel product) {
@@ -72,7 +74,7 @@ class CartController extends GetxController {
     return quantity;
   }
 
-  int get totalItems{
+  int get totalItems {
     var totalQuantity = 0;
     _items.forEach((key, value) {
       totalQuantity += value.quantity!;
@@ -80,9 +82,19 @@ class CartController extends GetxController {
     return totalQuantity;
   }
 
-  List<CartModel> get getItems{
-    return _items.entries.map((e) {
-      return e.value;
-    },).toList();
+  List<CartModel> get getItems {
+    return _items.entries.map(
+      (e) {
+        return e.value;
+      },
+    ).toList();
+  }
+
+  int get totalAmount {
+    var total = 0;
+    _items.forEach((key, value) {
+      total += value.quantity! * value.price!;
+    });
+    return total;
   }
 }
