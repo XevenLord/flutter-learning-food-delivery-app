@@ -16,7 +16,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   // late PersistentTabController _controller;
 
-  int _selectedIndex = 2;
+  int _selectedIndex = 0;
   List pages = [
     MainFoodPage(),
     Container(child: Center(child: Text("Next page"))),
