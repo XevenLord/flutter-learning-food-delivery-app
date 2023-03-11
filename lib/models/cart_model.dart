@@ -36,10 +36,12 @@ class CartModel {
     return {
       "id": this.id,
       "name": this.name,
-      "price": this.img,
+      "img": this.img,
+      "price": this.price,
       "quantity": this.quantity,
       "isExist": this.isExist,
-      "time": this.time
+      "time": this.time,
+      "product": this.product!.toJson(),
     };
   }
 }
